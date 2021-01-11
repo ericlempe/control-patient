@@ -9,7 +9,7 @@ use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
-use App\User;
+use App\Models\User;
 use Datatables;
 
 class UserController extends Controller

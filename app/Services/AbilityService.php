@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Silber\Bouncer\Database\Ability;
 
-class AbilityRepository extends BaseRepository 
+class AbilityService
 {
 
     /**
