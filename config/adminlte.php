@@ -189,10 +189,10 @@ return [
     'use_route_url' => false,
     'dashboard_url' => 'admin/home',
     'logout_url' => 'admin/logout',
-    'login_url' => 'admin/login',
-    'register_url' => 'admin/register',
-    'password_reset_url' => 'admin/password/reset',
-    'password_email_url' => 'admin/password/email',
+    'login_url' => 'login',
+    'register_url' => 'register',
+    'password_reset_url' => 'password/reset',
+    'password_email_url' => 'password/email',
     'profile_url' => false,
 
     /*
@@ -225,10 +225,11 @@ return [
 
     'menu' => [
         [
-            'text'        => 'Dashboard',
-            'url'         => 'admin/home',
-            'icon'        => 'fas fa-home'
+            'text'  => 'Dashboard',
+            'url'   => 'admin/home',
+            'icon'  => 'fas fa-home'
         ],
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -236,64 +237,37 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'  => 'Configurações',
+            'icon'  => 'fas fa-cogs',
+            'can'   => '',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'  => 'Perfis',
+                    'url'   => 'admin/roles',
+                    'icon'  => 'fas fa-user-tag',
+                    'can'   => ''
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text'  => 'Permissões',
+                    'url'   => 'admin/abilities',
+                    'icon'  => 'fas fa-user-check',
+                    'can'   => ''
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'  => 'Unidades Hospitalares',
+                    'url'   => 'admin/units',
+                    'icon'  => 'far fa-building',
+                    'topnav_right' => true,
+                    'can'   => ''
                 ],
+                [
+                    'text'  => 'Usuários',
+                    'url'   => 'admin/users',
+                    'icon'  => 'fas fa-user-tag',
+                    'can'   => ''
+                ]
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        ]
     ],
 
     /*

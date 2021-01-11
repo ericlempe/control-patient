@@ -18,11 +18,9 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-
+Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-
-	Auth::routes();
 
 	Route::group(['middleware' => ['auth']], function () {
 
@@ -34,7 +32,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	    | ROTAS PERFIS
 	    |----------------------------------------------------------------------
 	    */
-	    	// Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
+	    	// Route::group(['prefix' => 'perfis', 'as' => 'roles.'], function () {
 	     //        Route::get('/index', 'Admin/RoleController@index')->name('index');
 	     //        Route::get('/list', 'Admin/RoleController@datatables')->name('list');
 	     //        Route::get('/create', 'Admin/RoleController@create')->name('create');
@@ -49,7 +47,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	    | ROTAS PERMISSÕES
 	    |----------------------------------------------------------------------
 	    */
-	    	// Route::group(['prefix' => 'abilities', 'as' => 'abilities.'], function () {
+	    	// Route::group(['prefix' => 'permissoes', 'as' => 'abilities.'], function () {
 	     //        Route::get('/index', 'Admin/AbilityController@index')->name('index');
 	     //        Route::get('/list', 'Admin/AbilityController@datatables')->name('list');
 	     //        Route::get('/create', 'Admin/AbilityController@create')->name('create');
@@ -65,7 +63,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	    |----------------------------------------------------------------------
 	    */
 
-	    	// Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+	    	// Route::group(['prefix' => 'usuarios', 'as' => 'users.'], function () {
 	     //        Route::get('/index', 'Admin/UserController@index')->name('index');
 	     //        Route::get('/list', 'Admin/UserController@datatables')->name('list');
 	     //        Route::get('/create', 'Admin/UserController@create')->name('create');
