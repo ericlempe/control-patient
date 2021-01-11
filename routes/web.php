@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	            Route::post('/create', 'Admin/RoleController@store')->name('store');
 	            Route::get('/{role}/edit', 'Admin/RoleController@edit')->name('edit');
 	            Route::patch('/{role}', 'Admin/RoleController@update')->name('update');
-	            Route::delete('/{role}', 'Admin/RoleController@delete')->name('delete');
+	            Route::delete('/{role}', 'Admin/RoleController@destroy')->name('delete');
 	        });
 
 	    /*
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	            Route::post('/create', 'Admin/AbilityController@store')->name('store');
 	            Route::get('/{ability}/edit', 'Admin/AbilityController@edit')->name('edit');
 	            Route::patch('/{ability}', 'Admin/AbilityController@update')->name('update');
-	            Route::delete('/{ability}', 'Admin/AbilityController@delete')->name('delete');
+	            Route::delete('/{ability}', 'Admin/AbilityController@destroy')->name('delete');
 	        });
 	   
 	    /*
@@ -65,11 +65,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	            Route::post('/create', 'Admin/UserController@store')->name('store');
 	            Route::get('/{user}/edit', 'Admin/UserController@edit')->name('edit');
 	            Route::patch('/{user}', 'Admin/UserController@update')->name('update');
-	            Route::delete('/{user}', 'Admin/UserController@delete')->name('delete');
+	            Route::delete('/{user}', 'Admin/UserController@destroy')->name('delete');
 	            Route::post('/ativar/{user}', 'Admin/UserController@ativar')->name('activate');
-	            Route::post('/desativar/{user}', 'Admin/UserController@desativar')->name('deactivate');
-	            Route::get('/meus-dados/{user}', 'Admin/UserController@profile')->name('profile');
-	            Route::patch('/meus-dados/{user}', 'Admin/UserController@update_profile')->name('update-profile');
 	        });
 
         /*
