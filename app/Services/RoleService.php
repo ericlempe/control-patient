@@ -6,50 +6,7 @@ use Silber\Bouncer\Database\Role;
 
 class RoleService
 {
-    /**
-     * função que gera query para DataTables
-     *
-     * @return collection of roles
-     */
-    public function selectDataTable()
-    {
-        //obtendo perfil do usuário
-        // $perfil = auth()->user()->getRoles()->toArray();
-
-        // if(in_array('superadmin', $perfil))
-        //     return Role::select('id','name','title','created_at')->with('abilities')->get();
-
-        return Role::select('id','name','title','created_at')->with('abilities')->where('level', 0)->get();
-    }
-
-    /**
-     * função que busca objeto do perfil pelo id
-     *
-     * @param int - id do perfil buscado
-     * @return objeto role 
-     */
-    public function find($id)
-    {
-        return Role::findOrFail($id);
-    }
-
-    /**
-     * função que gera lista de perfis para select
-     * 
-     * @return collection de roles
-     */
-    public function listar()
-    {
-        //obtendo perfil do usuário
-        $perfil = auth()->user()->getRoles()->toArray();
-
-        // //obtendo perfis de acordo com perfil
-        // if(in_array('superadmin', $perfil))
-        //     return Role::orderBy('title','asc')->get()->pluck('title', 'name');
-
-        return Role::orderBy('title','asc')->where('level', 0)->get()->pluck('title', 'name');
-    }
-
+   
     /**
      * função que salva perfil no banco de dados
      *
