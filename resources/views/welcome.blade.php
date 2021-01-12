@@ -1,0 +1,100 @@
+@extends('adminlte::page')
+
+@section('title', 'Listar Permissões')
+
+@section('content_header')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>Dashboard</h1>
+            <ol class="breadcrumb float-sm-left">
+                <li class="breadcrumb-item active"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Layout</a></li>
+                <li class="breadcrumb-item ">Fixed Navbar Layout</li>
+            </ol>
+        </div>
+        <div class="col-sm-6">
+           
+        </div>
+    </div>
+@stop
+
+@section('content')
+  
+	<div class="box mt-3">
+        <div class="box-header">
+          <h3 class="box-title">Lista de Usuários</h3>
+        </div>
+            
+        <div class="box-body">
+            <div class="table-responsive">  
+                <table id="users-table" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+   </div>
+        
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">   
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/adminlte/datatables/css/dataTables.bootstrap4.min.css') }}">  
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/af-2.3.5/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/b-print-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.7/kt-2.5.3/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.1/datatables.min.css"/> -->
+@stop
+
+@section('js')
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script  -->type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/af-2.3.5/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/b-print-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.7/kt-2.5.3/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.1/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            
+            var table = $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.users.list') }}",
+                dom: 'Blfrtip',
+                buttons: [
+                    { extend: 'copyHtml5', text: '<i class="far fa-copy"></i>', titleAttr: 'Copiar' },
+                    { extend: 'excelHtml5', text: '<i class="far fa-file-excel"></i>', titleAttr: 'Excel' },
+                    { extend:'csvHtml5', text: '<i class="fas fa-file-csv"></i>', titleAttr: 'CSV' },
+                    { extend: 'pdfHtml5', text: '<i class="far fa-file-pdf"></i>', titleAttr: 'PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i>', titleAttr: 'Imprimir' }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets:   0
+                }],
+                select: {
+                    style: 'multi',
+                    selector: 'td:first-child'
+                },
+                columns: [
+                    {defaultContent: '', orderable: false, searchable: false },
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ],
+                initComplete: function () {
+                    // table.buttons().container().appendTo( '#users-table_wrapper .col-md-6:eq(0)' );
+                }   
+            }).buttons().container().appendTo('#users-table_wrapper .col-md-6:eq(0)');
+
+       
+
+            
+            
+    });
+</script>
+@stop
