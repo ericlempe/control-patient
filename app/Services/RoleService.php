@@ -5,7 +5,17 @@ namespace App\Services;
 use Silber\Bouncer\Database\Role;
 
 class RoleService
-{
+{   
+
+    /**
+     * Obtem os registros de perfis
+     *
+     * @return json
+     */
+    public function selectDataTable()
+    {
+        return Role::query()->select("*")->with('abilities')->where('id', '!=', 1)
+    }
    
     /**
      * função que salva perfil no banco de dados

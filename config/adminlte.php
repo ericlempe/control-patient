@@ -243,19 +243,19 @@ return [
             'submenu' => [
                 [
                     'text'  => 'Perfis',
-                    'url'   => 'admin.roles.index',
+                    'route'   => 'admin.roles.index',
                     'icon'  => 'fas fa-user-tag',
                     'can'   => ''
                 ],
                 [
                     'text'  => 'Permissões',
-                    'url'   => 'admin.abilities.index',
+                    'route'   => 'admin.abilities.index',
                     'icon'  => 'fas fa-user-check',
                     'can'   => ''
                 ],
                 [
                     'text'  => 'Unidades Hospitalares',
-                    'url'   => 'admin.units.index',
+                    'route'   => 'admin.units.index',
                     'icon'  => 'far fa-building',
                     'topnav_right' => true,
                     'can'   => ''
@@ -263,7 +263,7 @@ return [
                 [
                     'text'  => 'Usuários',
                     'route'   => 'admin.users.index',
-                    'icon'  => 'fas fa-user-tag',
+                    'icon'  => 'fas fa-users',
                     'can'   => ''
                 ]
             ],

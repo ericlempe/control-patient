@@ -8,30 +8,32 @@
 
 @section('content')
   
-	<div class="box">
+	<div class="box mt-3">
         <div class="box-header">
           <h3 class="box-title">Lista de Usuários</h3>
         </div>
             
         <div class="box-body">
-            <table id="users-table" class="table table-bordered table-striped">
-                <thead>
-	                <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th></th>
-	                </tr>
-                </thead>
-            </table>
+            <div class="table-responsive">  
+                <table id="users-table" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
    </div>
         
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">     
 @stop
 
 @section('js')
@@ -48,6 +50,7 @@
                 serverSide: true,
                 ajax: "{{ route('admin.users.list') }}",
                 dom: 'Blfrtip',
+                
                 columnDefs: [{
                     orderable: false,
                     className: 'select-checkbox',
@@ -63,8 +66,14 @@
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
+                ],
+                initComplete: function () {
+                    table.buttons().container().appendTo( '#example_wrapper .col-md-6:eq(0)' );
+                }
             });
+
+            
+            
     });
 </script>
 @stop

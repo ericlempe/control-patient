@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Services\AbilityService;
+
 use App\Http\Requests\Abilities\StoreRequest;
 use App\Http\Requests\Abilities\UpdateRequest;
 
 use Silber\Bouncer\Database\Ability;
-use Datatables;
+use Yajra\Datatables\Datatables;
 
 
 class AbilityController extends Controller
@@ -22,8 +23,9 @@ class AbilityController extends Controller
      */
     public function index()
     {
-        $this->authorize('index', Abilities::class);
-        return view('admin.administracao.abilities.list');
+        // $this->authorize('index', Abilities::class);
+
+        return view('admin.abilities.list');
     }
 
     /**
@@ -31,21 +33,21 @@ class AbilityController extends Controller
      *
      * @return datatable
      */
-    public function datatables()
+    public function datatables(AbilityService $abilityService)
     {
-        $this->authorize('index', Abilities::class);
+        // $this->authorize('index', Abilities::class);
 
         //obtendo informações para datatable
-        $abilities = $this->AbilitiesRepository->selectDataTable();
+        $abilities = $abilityService->selectDataTable();
 
         //retornando datatables
         return Datatables::of($abilities)
             ->addColumn('action', function ($ability) {
 
-                $edit = view('partials.components.action', ['action' => 'edit', 'route' => route('admin.abilities.edit', ['ability' => $ability->id]), 'ability' => 'admin-abilities-update', 'class' => 'list-icons-item ' . IconsHelper::getColor('update'), 'classIcon' => IconsHelper::getIcon('update'), 'title' => __('app.actions.labels.edit')] )->render();
-                $delete = view('partials.components.action', ['action' => 'delete', 'route' => route('admin.abilities.delete', ['ability' => $ability->id]), 'ability' => 'admin-abilities-delete', 'class' => 'btn-removal list-icons-item ' . IconsHelper::getColor('delete'), 'classIcon' => IconsHelper::getIcon('delete'), 'title' => __('app.actions.labels.delete') ])->render();
+                // $edit = view('partials.components.action', ['action' => 'edit', 'route' => route('admin.abilities.edit', ['ability' => $ability->id]), 'ability' => 'admin-abilities-update', 'class' => 'list-icons-item ' . IconsHelper::getColor('update'), 'classIcon' => IconsHelper::getIcon('update'), 'title' => __('app.actions.labels.edit')] )->render();
+                // $delete = view('partials.components.action', ['action' => 'delete', 'route' => route('admin.abilities.delete', ['ability' => $ability->id]), 'ability' => 'admin-abilities-delete', 'class' => 'btn-removal list-icons-item ' . IconsHelper::getColor('delete'), 'classIcon' => IconsHelper::getIcon('delete'), 'title' => __('app.actions.labels.delete') ])->render();
 
-                return '<div class="list-icons">' . $edit . $delete . '</div>';
+                return '<div class="list-icons">'  . '</div>';
             })
             ->editColumn('created_at', function($ability) {
                 return $ability->created_at->format('d-m-Y H:i');

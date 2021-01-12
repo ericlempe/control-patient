@@ -15,7 +15,7 @@
             
         <div class="box-body">
             <div class="table-responsive">  
-                <table id="abilities-table" class="table table-bordered table-striped">
+                <table id="roles-table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th></th>
@@ -43,10 +43,10 @@
     <script type="text/javascript">
         $(function () {
             
-            var table = $('#abilities-table').DataTable({
+            var table = $('#roles-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.abilities.list') }}",
+                ajax: "{{ route('admin.roles.list') }}",
                 dom: 'Blfrtip',
                 
                 columnDefs: [{
