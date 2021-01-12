@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-	return view('welcome');
-});
+Route::get('/', function () { return redirect('/admin/home'); });
 
 Auth::routes();
 
@@ -63,15 +60,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	    |----------------------------------------------------------------------
 	    */
 
-	    	// Route::group(['prefix' => 'usuarios', 'as' => 'users.'], function () {
-	     //        Route::get('/index', 'Admin/UserController@index')->name('index');
-	     //        Route::get('/list', 'Admin/UserController@datatables')->name('list');
-	     //        Route::get('/create', 'Admin/UserController@create')->name('create');
-	     //        Route::post('/create', 'Admin/UserController@store')->name('store');
-	     //        Route::get('/{user}/edit', 'Admin/UserController@edit')->name('edit');
-	     //        Route::patch('/{user}', 'Admin/UserController@update')->name('update');
-	     //        Route::delete('/{user}', 'Admin/UserController@destroy')->name('delete');
-	     //    });
+	    	Route::group(['prefix' => 'usuarios', 'as' => 'users.'], function () {
+	            Route::get('/index', 'Admin/UserController@index')->name('index');
+	            Route::get('/list', 'Admin/UserController@datatables')->name('list');
+	            Route::get('/create', 'Admin/UserController@create')->name('create');
+	            Route::post('/create', 'Admin/UserController@store')->name('store');
+	            Route::get('/{user}/edit', 'Admin/UserController@edit')->name('edit');
+	            Route::patch('/{user}', 'Admin/UserController@update')->name('update');
+	            Route::delete('/{user}', 'Admin/UserController@destroy')->name('delete');
+	        });
 
         /*
         |----------------------------------------------------------------------

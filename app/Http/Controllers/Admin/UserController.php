@@ -22,16 +22,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //verificando permissão em policy
+
+        # verificando permissão em policy
         $this->authorize('index', User::class);
 
-        //obtendo perfil
+        # obtendo perfil
         $perfil = auth()->user()->getRoles()[0];
 
-        //obtendo perfis de acordo com perfil do user logado
-        $roles = $this->RoleRepository->listar($perfil)->put('','');
+        # obtendo perfis de acordo com perfil do user logado
+        $roles = $this->UserService->listar($perfil)->put('','');
 
-        //status
+        # status
         $status = array('' => '', '1' => 'Ativo','0' => 'Inativo');
 
         return view('admin.users.list', compact(['roles','status']));
