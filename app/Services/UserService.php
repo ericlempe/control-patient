@@ -14,31 +14,10 @@ class UserService
      * @param collection - filtros para select
      * @return collection de User
      */
-    public function selectDataTable($filtros)
+    public function selectDataTable()
     {
-        //obtendo perfil do usuário
-        $perfis = auth()->user()->getRoles()->toArray();
-
-        if(in_array('superadmin', $perfis)){
-            $s = User::select(['id','cel','ultimo_login','name','email','status'])->with('roles');
-
-        }else {
-            $s = User::select(['id','cel','ultimo_login','name','email','status'])->with('roles')->where('id', '!=', 1);
-        }
-
-        //verificando se filtro status foi definido
-        if($filtros->has('status')){
-            $s = $s->where('status', $filtros['status']);
-        }
-
-        //verificando se filtro perfil foi definido
-        if($filtros->has('perfil')){
-            $s = $s->whereHas('roles', function ($query) use ($filtros) {
-                $query->where('roles.name', $filtros['perfil']);
-            });
-        }
-
-        return $s->get();
+        
+        return User::all();
     }
 
     /**

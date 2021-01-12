@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Models\User;
-use Datatables;
+use Yajra\Datatables\Datatables;
 
 class UserController extends Controller
 {
@@ -22,20 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-
+        
         # verificando permissão em policy
-        $this->authorize('index', User::class);
+        // $this->authorize('index', User::class);
 
-        # obtendo perfil
-        $perfil = auth()->user()->getRoles()[0];
 
-        # obtendo perfis de acordo com perfil do user logado
-        $roles = $this->UserService->listar($perfil)->put('','');
-
-        # status
-        $status = array('' => '', '1' => 'Ativo','0' => 'Inativo');
-
-        return view('admin.users.list', compact(['roles','status']));
+        return view('admin.users.list');
     }
 
     /**
@@ -43,28 +32,13 @@ class UserController extends Controller
      *
      * @return datatable
      */
-    public function datatables()
+    public function datatables(UserService $userService)
     {
         //verificando permissão em policy
-        $this->authorize('index', User::class);
-
-        //filtros para select
-        $filtros = collect();
-
-        // additional users.status search
-        if (request()->has('status')) {
-            if(!is_null(request('status')))
-                $filtros->put('status', request('status'));
-        }
-
-        // additional users role search
-        if (request()->has('role')) {
-            if(!is_null(request('role')))
-                $filtros->put('perfil', request('role'));
-        }
+        // $this->authorize('index', User::class);
 
         //obtendo informações para datatable
-        $users = $this->UserRepository->selectDataTable($filtros);
+        $users = $userService->selectDataTable();
 
         //instancia datatables
         $datatables =  Datatables::of($users);
@@ -72,27 +46,14 @@ class UserController extends Controller
         //configurando colunas
         $datatables
             ->addColumn('action', function ($user) {
-                $edit = view('partials.components.action', ['action' => 'edit', 'route' => route('admin.users.edit', ['user' => $user->id]), 'ability' => 'admin-users-update', 'class' => 'list-icons-item ' . IconsHelper::getColor('update'), 'classIcon' => IconsHelper::getIcon('update'), 'title' => __('app.actions.labels.edit')])->render();
-                $delete = view('partials.components.action', ['action' => 'delete', 'route' => route('admin.users.delete', ['user' => $user->id]), 'ability' => 'admin-users-delete', 'class' => 'btn-removal list-icons-item ' . IconsHelper::getColor('delete'), 'classIcon' => IconsHelper::getIcon('delete'), 'title' => __('app.actions.labels.delete') ])->render();
-                $ativar = view('partials.components.action', ['action' => 'activate', 'route' => route('admin.users.activate', ['user' => $user->id]), 'ability' => 'admin-users-activation', 'class' => 'btn-activation list-icons-item ' . IconsHelper::getColor('activate'), 'classIcon' => IconsHelper::getIcon('activate'), 'title' => __('app.actions.labels.activate') ])->render();
-                $desativar = view('partials.components.action', ['action' => 'deactivate', 'route' => route('admin.users.deactivate', ['user' => $user->id]), 'ability' => 'admin-users-activation', 'class' => 'btn-deactivation list-icons-item ' . IconsHelper::getColor('deactivate'), 'classIcon' => IconsHelper::getIcon('deactivate'), 'title' => __('app.actions.labels.deactivate') ])->render();
-             
-                return '<div class="list-icons">' . (($user->status == 1) ? ($desativar . $edit . $delete) : ($ativar . $edit . $delete)) . '</div>';
-            })
-            ->editColumn('ultimo_login', function($user) {
-                return view('partials.components.texts', ['text' => (($user->ultimo_login == null) ? 'Nunca' : date('d/m/Y H:i', strtotime($user->ultimo_login)))])->render();
-            })
-            ->editColumn('status', function($user){
-                return $user->status == 1 ? view('partials.components.icons', ['icon' => 'active'])->render() : view('partials.components.icons', ['icon' => 'inactive'])->render();
-            })
-            ->addColumn('roles', function($user) {
-                $array = array();
-                foreach ($user->roles as $role) {
-                    $array[] = view('partials.components.badge', ['class' => 'badge badge-primary', 'title' => $role->name ])->render();
-                }
-                return implode($array, ' ');
-            });
+                // $edit = view('partials.components.action', ['action' => 'edit', 'route' => route('admin.users.edit', ['user' => $user->id]), 'ability' => 'admin-users-update', 'class' => 'list-icons-item ' . IconsHelper::getColor('update'), 'classIcon' => IconsHelper::getIcon('update'), 'title' => __('app.actions.labels.edit')])->render();
+                // $delete = view('partials.components.action', ['action' => 'delete', 'route' => route('admin.users.destroy', ['user' => $user->id]), 'ability' => 'admin-users-delete', 'class' => 'btn-removal list-icons-item ' . IconsHelper::getColor('delete'), 'classIcon' => IconsHelper::getIcon('delete'), 'title' => __('app.actions.labels.delete') ])->render();
 
+             
+                // return '<div class="list-icons">' . $edit . $delete . '</div>';
+                return '<div class="list-icons"></div>';
+            });
+           
         //retornando datatables
         return $datatables->make(true);
     }

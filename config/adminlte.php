@@ -243,26 +243,26 @@ return [
             'submenu' => [
                 [
                     'text'  => 'Perfis',
-                    'url'   => 'admin/roles',
+                    'url'   => 'admin.roles.index',
                     'icon'  => 'fas fa-user-tag',
                     'can'   => ''
                 ],
                 [
                     'text'  => 'Permissões',
-                    'url'   => 'admin/abilities',
+                    'url'   => 'admin.abilities.index',
                     'icon'  => 'fas fa-user-check',
                     'can'   => ''
                 ],
                 [
                     'text'  => 'Unidades Hospitalares',
-                    'url'   => 'admin/units',
+                    'url'   => 'admin.units.index',
                     'icon'  => 'far fa-building',
                     'topnav_right' => true,
                     'can'   => ''
                 ],
                 [
                     'text'  => 'Usuários',
-                    'url'   => 'admin/users',
+                    'route'   => 'admin.users.index',
                     'icon'  => 'fas fa-user-tag',
                     'can'   => ''
                 ]
